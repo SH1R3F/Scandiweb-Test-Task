@@ -2,32 +2,40 @@
 
 namespace Scandiweb;
 
+use ReflectionClass;
+
 class Container
 {
 
-    private array $entries;
+    private static array $entries;
 
 
-    public function get(string $id)
+    public static function get(string $id)
     {
-        if ($this->has($id)) {
-            $entry = $this->entries[$id];
+        if (static::has($id)) {
+            $entry = static::$entries[$id];
 
             return $entry();
         }
 
-        // Resolve it magically
-
+        // return static::resolve($id);
     }
 
 
-    public function has(string $id): bool
+    public static function has(string $id): bool
     {
-        return isset($this->entries[$id]);
+        return isset(static::$entries[$id]);
     }
 
-    public function set(string $class, callable $callable): void
+    public static function set(string $class, callable $callable): void
     {
-        $this->entries[$class] = $callable;
+        static::$entries[$class] = $callable;
     }
+
+
+    // public static function resolve(string $id)
+    // {
+    //     $reflectionClass = new ReflectionClass($id);
+
+    // }
 }
