@@ -6,10 +6,18 @@ abstract class Model
 {
 
     private \PDO $pdo;
+    private array $attributes = [];
 
+    /**
+     * Table name
+     */
     protected $table;
 
-    private array $attributes = [];
+    /**
+     * Fillable Attributes for mass assignment
+     */
+    protected $fillable;
+
 
     public function __construct()
     {
