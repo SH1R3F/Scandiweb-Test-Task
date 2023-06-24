@@ -6,6 +6,7 @@ class Database
 {
 
     private static ?\PDO $connection = null;
+    private static ?Database $instance = null;
 
     /**
      * Private constructor to disable instantiation from outside the class
@@ -29,9 +30,15 @@ class Database
     public static function instance()
     {
         if (!static::$connection) {
-            new static;
+            static::$instance = new static;
         }
 
+        return static::$instance;
+    }
+
+    public function pdo()
+    {
         return static::$connection;
     }
+
 }
