@@ -9,18 +9,18 @@ class Router
     private static array $routes = [];
 
 
-    private static function addRoute(string $request_method, string $path, callable $action): void
+    private static function addRoute(string $request_method, string $path, callable|array $action): void
     {
         $path = rtrim($path, '/');
         static::$routes[$path][$request_method] = $action;
     }
 
-    public static function get(string $path, callable $action): void
+    public static function get(string $path, callable|array $action): void
     {
         static::addRoute('GET', $path, $action);
     }
 
-    public static function post(string $path, callable $action): void
+    public static function post(string $path, callable|array $action): void
     {
         static::addRoute('POST', $path, $action);
     }
@@ -48,6 +48,12 @@ class Router
 
 
         $action = static::$routes[$path][$request_method];
+
+        if (is_array($action)) {
+            [$class, $method] = $action;
+            
+            return call_user_func([new $class(), $method], []);
+        }
 
         return $action();
     }
