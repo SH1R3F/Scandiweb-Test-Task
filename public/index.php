@@ -2,6 +2,7 @@
 
 use Scandiweb\Container;
 use Scandiweb\Database;
+use Scandiweb\Router;
 
 // Include the composer autoloader
 require __DIR__ . '/../vendor/autoload.php';
@@ -17,3 +18,12 @@ define('CONFIG_PATH', __DIR__ . '/../config/');
  */
 // Add The Database instance to the container
 Container::set(Database::class, fn () => Database::instance());
+
+
+/**
+ * Register routes
+ */
+require __DIR__ . '/../routes/web.php';
+
+// Resolve current route
+Router::resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
