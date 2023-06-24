@@ -52,7 +52,7 @@ class Router
         if (is_array($action)) {
             [$class, $method] = $action;
             
-            return call_user_func([new $class(), $method], []);
+            return call_user_func([Container::get($class), $method], []);
         }
 
         return $action();
