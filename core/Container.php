@@ -1,8 +1,11 @@
-<?php 
+<?php
 
 namespace Scandiweb;
 
+use Exception;
 use ReflectionClass;
+use ReflectionNamedType;
+use ReflectionParameter;
 
 class Container
 {
@@ -18,7 +21,7 @@ class Container
             return $entry();
         }
 
-        // return static::resolve($id);
+        return static::resolve($id);
     }
 
 
@@ -33,9 +36,35 @@ class Container
     }
 
 
-    // public static function resolve(string $id)
-    // {
-    //     $reflectionClass = new ReflectionClass($id);
+    public static function resolve(string $id)
+    {
+        $reflectionClass = new ReflectionClass($id);
+        $constructor     = $reflectionClass->getConstructor();
 
-    // }
+        if (!$constructor) {
+            return new $id;
+        }
+
+
+        $params = $constructor->getParameters();
+
+        if (!$params) {
+            return new $id;
+        }
+
+
+        // Prepare the dependencies
+        $args = array_map(function (ReflectionParameter $param) {
+            $type = $param->getType();
+            $name = $param->getName();
+
+            if ($type instanceof ReflectionNamedType && !$type->isBuiltin()) {
+                return static::get($type);
+            }
+
+            throw new Exception("Parameter $name cannot be injection as it's union type");
+        }, $params);
+
+        return $reflectionClass->newInstanceArgs($args);
+    }
 }
