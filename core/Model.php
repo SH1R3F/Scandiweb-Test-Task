@@ -41,8 +41,16 @@ abstract class Model
 
     public function __get($attribute)
     {
-        if (array_key_exists($attribute, $this->attributes)) {
-            return $this->attributes[$attribute];
+        if (!array_key_exists($attribute, $this->attributes)) {
+            return;
         }
+
+        // Support accessors
+        if (method_exists($this, $attribute)) {
+            $accessor = $this->$attribute();
+            return $accessor($this->attributes[$attribute]);
+        }
+        
+        return $this->attributes[$attribute];
     }
 }
