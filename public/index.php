@@ -1,12 +1,11 @@
 <?php
 
-use Scandiweb\Model;
+use Scandiweb\Container;
+use Scandiweb\Database;
 
 // Include the composer autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
 
-$products = (new Model)->all();
-
-echo '<pre>';
-print_r($products);
+// Add The Database instance to the container
+Container::set(\PDO::class, fn() => Database::instance());
