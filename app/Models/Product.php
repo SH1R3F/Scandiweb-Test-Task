@@ -16,7 +16,7 @@ class Product extends Model
     }
 
     /**
-     * Get the price display value.
+     * Price Accessor and Mutator
      */
     protected function price()
     {
@@ -27,7 +27,7 @@ class Product extends Model
     }
 
     /**
-     * Decode the attributes for display
+     * Attributes Accessor and Mutator
      */
     protected function attrs()
     {
