@@ -9,6 +9,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 
 define('CONFIG_PATH', __DIR__ . '/../config/');
+define('VIEW_PATH', __DIR__ . '/../views/');
 
 
 
@@ -26,4 +27,4 @@ Container::set(Database::class, fn () => Database::instance());
 require __DIR__ . '/../routes/web.php';
 
 // Resolve current route
-Router::resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+echo Router::resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
