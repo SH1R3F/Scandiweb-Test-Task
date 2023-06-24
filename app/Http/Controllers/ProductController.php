@@ -1,15 +1,13 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
+use Scandiweb\View;
+
 class ProductController
 {
-
-
     public function index()
     {
-        echo 'Hello inside products controller';
+        return View::make('products/index', ['var' => 'value']);
     }
-
-
 }
