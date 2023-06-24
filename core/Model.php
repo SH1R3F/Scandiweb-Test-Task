@@ -33,13 +33,13 @@ abstract class Model
     }
 
 
-    public function attributes()
+    public function attributes(): array
     {
         return $this->attributes;
     }
 
 
-    public function __get($attribute)
+    public function __get(string $attribute):mixed
     {
         if (!array_key_exists($attribute, $this->attributes)) {
             return;
