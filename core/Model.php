@@ -5,7 +5,7 @@ namespace Scandiweb;
 abstract class Model
 {
 
-    private \PDO $pdo;
+    private Database $db;
     private array $attributes = [];
 
     /**
@@ -21,19 +21,19 @@ abstract class Model
 
     public function __construct()
     {
-        $this->pdo = Container::get(\PDO::class);
+        $this->db = Container::get(\PDO::class);
     }
 
 
     public function all(): array
     {
-        $stmt = $this->pdo->query("SELECT * FROM {$this->table}");
+        $stmt = $this->db->pdo()->query("SELECT * FROM {$this->table}");
         return $stmt->fetchAll();
     }
 
     public function find(int $id)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = ? LIMIT 1");
+        $stmt = $this->db->pdo()->prepare("SELECT * FROM {$this->table} WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
         $this->attributes = $stmt->fetch();
 
@@ -48,10 +48,10 @@ abstract class Model
 
         $keys = implode(', ', array_keys($data));
         $placeholders = trim(array_reduce(array_keys($data), fn ($total, $item) => $total .= ":$item, ", ''), ', ');
-        $stmt = $this->pdo->prepare("INSERT INTO {$this->table} ($keys) VALUES ($placeholders)");
+        $stmt = $this->db->pdo()->prepare("INSERT INTO {$this->table} ($keys) VALUES ($placeholders)");
         
         if ($stmt->execute($data)) {
-            return $this->find($this->pdo->lastInsertId());
+            return $this->find($this->db->pdo()->lastInsertId());
         }
     }
 
