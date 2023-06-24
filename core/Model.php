@@ -7,10 +7,9 @@ class Model
 
     private \PDO $pdo;
 
-
     public function __construct()
     {
-        $this->pdo = Database::instance();
+        $this->pdo = Container::get(\PDO::class);
     }
 
 
