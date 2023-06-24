@@ -62,7 +62,7 @@ class Container
                 return static::get($type);
             }
 
-            throw new Exception("Parameter $name cannot be injection as it's union type");
+            throw new Exception("Class $type for parameter $name cannot be injected");
         }, $params);
 
         return $reflectionClass->newInstanceArgs($args);
