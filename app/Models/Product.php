@@ -7,13 +7,16 @@ use Scandiweb\Casts\Attribute;
 
 class Product extends Model
 {
+    /**
+     * Table name
+     */
     protected $table = 'products';
 
+    /**
+     * Fillable Attributes for mass assignment
+     */
+    protected $fillable = ['sku', 'name', 'price', 'type', 'attrs'];
 
-    public function getPriceAttribute()
-    {
-        return $this->price / 100;
-    }
 
     /**
      * Price Accessor and Mutator
