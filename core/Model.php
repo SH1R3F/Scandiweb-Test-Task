@@ -48,7 +48,7 @@ abstract class Model
         // Support accessors
         if (method_exists($this, $attribute)) {
             $accessor = $this->$attribute();
-            return $accessor($this->attributes[$attribute]);
+            return ($accessor->get)($this->attributes[$attribute]);
         }
         
         return $this->attributes[$attribute];

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Scandiweb\Model;
+use Scandiweb\Casts\Attribute;
 
 class Product extends Model
 {
@@ -15,10 +16,22 @@ class Product extends Model
     }
 
     /**
-     * Get the prive display value.
+     * Get the price display value.
      */
     protected function price()
     {
-        return fn (int $value) => $value / 100;
+        return Attribute::make(
+            get: fn (string $value) => $value / 100
+        );
+    }
+
+    /**
+     * Decode the attributes for display
+     */
+    protected function attrs()
+    {
+        return Attribute::make(
+            get: fn (string $value) => json_decode($value, 1)
+        );
     }
 }
