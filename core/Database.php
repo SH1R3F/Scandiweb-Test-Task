@@ -5,7 +5,7 @@ namespace Scandiweb;
 class Database
 {
 
-    private static $connection = null;
+    private static ?\PDO $connection = null;
 
     /**
      * Private constructor to disable instantiation from outside the class
@@ -29,7 +29,7 @@ class Database
     public static function instance()
     {
         if (!static::$connection) {
-            static::$connection = new static;
+            new static;
         }
 
         return static::$connection;
