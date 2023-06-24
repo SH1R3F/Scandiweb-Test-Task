@@ -25,27 +25,31 @@ abstract class Model
     }
 
 
-    public function all(): array
+    public static function all(): array
     {
-        return $this->db->get('*', $this->table);
+        $model = new static;
+        return $model->db->get('*', $model->table);
     }
 
-    public function find(int $id)
+    public static function find(int $id)
     {
-        $this->attributes = $this->db->getOne('*', $this->table, $id);
-        return $this;
+        $model = new static;
+        $model->attributes = $model->db->getOne('*', $model->table, $id);
+        return $model;
     }
 
-    public function create(array $data)
+    public static function create(array $data)
     {
-        if (isset($this->fillable)) {
-            $data = array_filter($data, fn ($key) => in_array($key, $this->fillable), ARRAY_FILTER_USE_KEY);
+        $model = new static;
+
+        if (isset($model->fillable)) {
+            $data = array_filter($data, fn ($key) => in_array($key, $model->fillable), ARRAY_FILTER_USE_KEY);
         }
 
-        $insert = $this->db->insert($this->table, $data);
+        $insert = $model->db->insert($model->table, $data);
         
         if ($insert) {
-            return $this->find($this->db->pdo()->lastInsertId());
+            return $model->find($model->db->pdo()->lastInsertId());
         }
     }
 
