@@ -27,16 +27,12 @@ abstract class Model
 
     public function all(): array
     {
-        $stmt = $this->db->pdo()->query("SELECT * FROM {$this->table}");
-        return $stmt->fetchAll();
+        return $this->db->get('*', $this->table);
     }
 
     public function find(int $id)
     {
-        $stmt = $this->db->pdo()->prepare("SELECT * FROM {$this->table} WHERE id = ? LIMIT 1");
-        $stmt->execute([$id]);
-        $this->attributes = $stmt->fetch();
-
+        $this->attributes = $this->db->getOne('*', $this->table, $id);
         return $this;
     }
 
@@ -46,11 +42,9 @@ abstract class Model
             $data = array_filter($data, fn ($key) => in_array($key, $this->fillable), ARRAY_FILTER_USE_KEY);
         }
 
-        $keys = implode(', ', array_keys($data));
-        $placeholders = trim(array_reduce(array_keys($data), fn ($total, $item) => $total .= ":$item, ", ''), ', ');
-        $stmt = $this->db->pdo()->prepare("INSERT INTO {$this->table} ($keys) VALUES ($placeholders)");
+        $insert = $this->db->insert($this->table, $data);
         
-        if ($stmt->execute($data)) {
+        if ($insert) {
             return $this->find($this->db->pdo()->lastInsertId());
         }
     }
