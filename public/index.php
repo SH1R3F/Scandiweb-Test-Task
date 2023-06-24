@@ -1,3 +1,5 @@
-<?php 
+<?php
 
-echo 'Hello world';
+
+// Include the composer autoloader
+require __DIR__ . '/../vendor/autoload.php';

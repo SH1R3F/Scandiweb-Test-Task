@@ -1,0 +1,18 @@
+{
+    "name": "mahmoud/scandiweb",
+    "description": "My solution and implementation for the Junior Developer Test Task at Scandiweb.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mahmoud Shiref",
+            "email": "mahmoud.shiref25@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Scandiweb\\": "core/"
+        }
+    },
+    "require": {}
+}
