@@ -1,13 +1,12 @@
 <?php
 
-use Scandiweb\Database;
-
+use Scandiweb\Model;
 
 // Include the composer autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
 
-Database::instance();
-Database::instance();
-Database::instance();
-Database::instance();
+$products = (new Model)->all();
+
+echo '<pre>';
+print_r($products);
