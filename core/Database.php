@@ -14,11 +14,10 @@ class Database
     private function __construct()
     {
         try {
-            static::$connection = new \PDO('mysql:host=localhost;dbname=scandiweb', 'root', 'toor', [
+            static::$connection = new \PDO('mysql:host=' . Config::get('database.host') . ';dbname=' . Config::get('database.database'), Config::get('database.username'), Config::get('database.password'), [
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
             ]);
 
-            echo 'Connected to DB <br>';
         } catch (\PDOException $e) {
             die('Failed connecting to db');
         }
