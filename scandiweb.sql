@@ -33,14 +33,14 @@ CREATE TABLE `products` (
   `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `price` int UNSIGNED NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `attributes` json NOT NULL
+  `attrs` json NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `sku`, `name`, `price`, `type`, `attributes`) VALUES
+INSERT INTO `products` (`id`, `sku`, `name`, `price`, `type`, `attrs`) VALUES
 (1, 'GGEZ202822', 'Valorant Disc', 2000, 'dvd', '{\"size\": 700}'),
 (2, 'GGEZ201332', 'Fortnite Disc', 3500, 'dvd', '{\"size\": 200}'),
 (3, 'GGEZ206566', 'Apex Disc', 7999, 'dvd', '{\"size\": 700}'),
