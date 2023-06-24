@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Scandiweb;
 
@@ -39,7 +39,7 @@ abstract class Model
     }
 
 
-    public function __get(string $attribute):mixed
+    public function __get(string $attribute): mixed
     {
         if (!array_key_exists($attribute, $this->attributes)) {
             return null;
@@ -50,7 +50,23 @@ abstract class Model
             $accessor = $this->$attribute();
             return ($accessor->get)($this->attributes[$attribute]);
         }
-        
+
         return $this->attributes[$attribute];
+    }
+
+    public function __set(string $name, mixed $value): void
+    {
+        if (property_exists($this, $name)) {
+            return;
+        }
+
+        // Support mutators
+        if (method_exists($this, $name)) {
+            $accessor = $this->$name();
+            $this->attributes[$name] = ($accessor->set)($value);
+            return;
+        }
+
+        $this->attributes[$name] = $value;
     }
 }
