@@ -42,7 +42,7 @@ abstract class Model
     public function __get(string $attribute):mixed
     {
         if (!array_key_exists($attribute, $this->attributes)) {
-            return;
+            return null;
         }
 
         // Support accessors
