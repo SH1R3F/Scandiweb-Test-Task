@@ -40,6 +40,21 @@ abstract class Model
         return $this;
     }
 
+    public function create(array $data)
+    {
+        if (isset($this->fillable)) {
+            $data = array_filter($data, fn ($key) => in_array($key, $this->fillable), ARRAY_FILTER_USE_KEY);
+        }
+
+        $keys = implode(', ', array_keys($data));
+        $placeholders = trim(array_reduce(array_keys($data), fn ($total, $item) => $total .= ":$item, ", ''), ', ');
+        $stmt = $this->pdo->prepare("INSERT INTO {$this->table} ($keys) VALUES ($placeholders)");
+        
+        if ($stmt->execute($data)) {
+            return $this->find($this->pdo->lastInsertId());
+        }
+    }
+
 
     public function attributes(): array
     {
