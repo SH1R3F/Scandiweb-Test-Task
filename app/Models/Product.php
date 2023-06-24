@@ -21,7 +21,8 @@ class Product extends Model
     protected function price()
     {
         return Attribute::make(
-            get: fn (string $value) => $value / 100
+            get: fn (int $value) => $value / 100,
+            set: fn (int $value) => $value * 100
         );
     }
 
@@ -31,7 +32,8 @@ class Product extends Model
     protected function attrs()
     {
         return Attribute::make(
-            get: fn (string $value) => json_decode($value, 1)
+            get: fn (string $value) => json_decode($value, 1),
+            set: fn (mixed $value) => json_encode($value)
         );
     }
 }
