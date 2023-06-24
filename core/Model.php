@@ -21,4 +21,10 @@ abstract class Model
         return $stmt->fetchAll();
     }
 
+    public function find(int $id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = ? LIMIT 1");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
 }
