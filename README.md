@@ -9,5 +9,8 @@ To get started with the Scandiweb Junior Developer Test Task, please follow thes
 1. Import the Database:
     - Import the "scandiweb.sql" file localed in the base directory of the repository.
 
-2. Run Composer Install:
+2. Update Database Configuration:
+    - Update your database setup inside `/config/database.php` file.
+
+3. Run Composer Install:
     - Open a terminal or command prompt and navigate to the project's base directory then run `composer install`.
