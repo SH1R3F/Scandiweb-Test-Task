@@ -9,6 +9,8 @@ abstract class Model
 
     protected $table;
 
+    private array $attributes = [];
+
     public function __construct()
     {
         $this->pdo = Container::get(\PDO::class);
@@ -25,6 +27,22 @@ abstract class Model
     {
         $stmt = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        return $stmt->fetch();
+        $this->attributes = $stmt->fetch();
+
+        return $this;
+    }
+
+
+    public function attributes()
+    {
+        return $this->attributes;
+    }
+
+
+    public function __get($attribute)
+    {
+        if (array_key_exists($attribute, $this->attributes)) {
+            return $this->attributes[$attribute];
+        }
     }
 }
