@@ -14,7 +14,7 @@ class Database
     {
         try {
             static::$connection = new \PDO('mysql:host=localhost;dbname=scandiweb', 'root', 'toor', [
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
             ]);
 
             echo 'Connected to DB <br>';
