@@ -73,4 +73,18 @@ class Database
         $stmt->execute(array_values($where));
         return $stmt->fetchColumn();
     }
+
+    public function delete(string $table, array $where)
+    {
+        $clause = array_reduce(array_keys($where), fn($total, $item) => ($total . "$item = ? AND "), '');
+        $stmt = static::$connection->prepare("DELETE FROM $table WHERE " . rtrim($clause, ' AND '));
+        return $stmt->execute(array_values($where));
+    }
+
+    public function deleteMany(string $table, array $ids)
+    {
+        $clause = array_reduce(array_keys($ids), fn($total, $id) => ($total . "?, "), '');
+        $stmt = static::$connection->prepare("DELETE FROM $table WHERE id IN (" . rtrim($clause, ', ') . ")");
+        return $stmt->execute(array_values($ids));
+    }
 }
