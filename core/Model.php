@@ -28,7 +28,13 @@ abstract class Model
     public static function all(): array
     {
         $model = new static;
-        return $model->db->get('*', $model->table);
+        $records = $model->db->get('*', $model->table);
+        
+        return array_map(function($record) {
+            $model = new static;
+            $model->attributes = $record;
+            return $model;
+        }, $records);
     }
 
     public static function find(int $id)
