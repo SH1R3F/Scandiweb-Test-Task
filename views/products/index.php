@@ -22,7 +22,7 @@
     <!-- Delete Form -->
     <form action="/products" method="POST" id="deleteForm">
       <input type="hidden" name="_method" value="DELETE">
-      <input type="hidden" name="csrf_token" value="TO BE ADDED">
+      <input type="hidden" name="csrf_token" value="<?= \Scandiweb\Session::csrf() ?>">
       <div class="row">
 
         <?php foreach ($products as $product) : ?>

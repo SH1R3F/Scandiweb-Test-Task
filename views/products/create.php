@@ -34,7 +34,7 @@
 
         <!-- Create Form -->
         <form action="/add-product" method="POST" id="product_form">
-            <input type="hidden" name="csrf_token" value="TO BE ADDED">
+            <input type="hidden" name="csrf_token" value="<?= \Scandiweb\Session::csrf() ?>">
 
             <!-- SKU Field -->
             <div class="mb-3 row">
