@@ -30,13 +30,13 @@ class ProductController
 
     public function store()
     {
-        echo '<pre>';
-        print_r($this->request->all());
-
+        // Validate
         $request = new StoreProductRequest;
+        
+        // Create
+        $product = Product::create($request->all());
 
-        echo '<pre>';
-        print_r($request->all());
+        return Redirect::to('/');
     }
 
     public function destroy()
