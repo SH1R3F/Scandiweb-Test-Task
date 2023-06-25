@@ -2,6 +2,9 @@
 
 namespace Scandiweb;
 
+use Scandiweb\Validation\Exceptions\ValidationException;
+use Scandiweb\Validation\Validator;
+
 class Request
 {
 
@@ -10,7 +13,19 @@ class Request
     public function __construct()
     {
         $this->request = $_REQUEST;
+
+        // Validate
+        $validator = Validator::make($this->request, $this->rules());
+        if ($validator->errors()) {
+            throw (new ValidationException)->withErrors($validator->errors());
+        }
     }
+
+    public function rules()
+    {
+        return [];
+    }
+
 
     public function all(): array
     {
