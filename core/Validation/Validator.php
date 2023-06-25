@@ -34,6 +34,9 @@ class Validator
                         continue;
                     }
                 }
+                if (!is_array($data)) {
+                    $this->run($key, $data, $rule);
+                }
                 continue;
             }
 
