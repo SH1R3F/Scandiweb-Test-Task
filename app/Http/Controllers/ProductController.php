@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DeleteProductRequest;
 use App\Models\Product;
+use Scandiweb\Redirect;
 use Scandiweb\Request;
 use Scandiweb\View;
 
@@ -28,6 +29,6 @@ class ProductController
         $products_ids = $request->get('products');
         Product::delete($products_ids);
 
-        return header('Location: /');
+        return Redirect::to('/');
     }
 }
