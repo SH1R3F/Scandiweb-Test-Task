@@ -11,13 +11,13 @@ class StoreProductRequest extends Request
         return [
             'sku'          => ['required', 'unique:products,sku'],
             'name'         => ['required'],
-            'price'        => ['required'],
+            'price'        => ['required', 'numeric'],
             'type'         => ['required'],
-            'attrs.weight' => ['required_if:type,book'],
-            'attrs.size'   => ['required_if:type,dvd'],
-            'attrs.height' => ['required_if:type,furniture'],
-            'attrs.width'  => ['required_if:type,furniture'],
-            'attrs.length' => ['required_if:type,furniture'],
+            'attrs.weight' => ['required_if:type,book', 'numeric'],
+            'attrs.size'   => ['required_if:type,dvd', 'numeric'],
+            'attrs.height' => ['required_if:type,furniture', 'numeric'],
+            'attrs.width'  => ['required_if:type,furniture', 'numeric'],
+            'attrs.length' => ['required_if:type,furniture', 'numeric'],
         ];
     }
 }
