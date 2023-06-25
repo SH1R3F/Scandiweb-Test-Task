@@ -21,7 +21,7 @@ class Request
         }
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

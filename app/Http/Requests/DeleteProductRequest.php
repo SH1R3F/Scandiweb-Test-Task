@@ -6,7 +6,7 @@ use Scandiweb\Request;
 
 class DeleteProductRequest extends Request
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'products' => 'required|array', // Validation rules can be a string
