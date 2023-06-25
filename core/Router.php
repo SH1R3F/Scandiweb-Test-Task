@@ -25,6 +25,11 @@ class Router
         static::addRoute('POST', $path, $action);
     }
 
+    public static function delete(string $path, callable|array $action): void
+    {
+        static::addRoute('DELETE', $path, $action);
+    }
+
     /**
      * Add other request methods here if needed
      */
