@@ -22,6 +22,8 @@ class View
             throw new ViewNotFound;
         }
 
+        $errors = Session::get('flash')['errors'] ?? [];
+
         extract($this->params);
 
         ob_start();
