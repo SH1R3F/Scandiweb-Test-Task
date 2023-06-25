@@ -10,7 +10,7 @@ class DeleteProductRequest extends Request
     {
         return [
             'products' => 'required|array', // Validation rules can be a string
-            'products.*' => ['required'] //, 'exists:products,id'] // Or an Array
+            'products.*' => ['required', 'exists:products,id'] // Or an Array
         ];
     }
 }
