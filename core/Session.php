@@ -5,6 +5,9 @@ namespace Scandiweb;
 
 class Session
 {
+
+    public const CSRF = 'csrf_token';
+
     public static function flash(string $key, mixed $value): void
     {
         $_SESSION['flash'][$key] = $value;
@@ -33,5 +36,13 @@ class Session
         if (static::has($key)) {
             unset($_SESSION[$key]);
         }
+    }
+
+    public static function csrf(): string
+    {
+        $token = md5(uniqid(mt_rand(), true));
+        static::set(static::CSRF, $token);
+
+        return $token;
     }
 }
