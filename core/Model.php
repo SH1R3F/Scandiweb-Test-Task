@@ -43,22 +43,27 @@ abstract class Model
         $model->attributes = $model->db->getOne('*', $model->table, $id);
         return $model;
     }
-
+    
     public static function create(array $data)
     {
         $model = new static;
-
+        
         if (isset($model->fillable)) {
             $data = array_filter($data, fn ($key) => in_array($key, $model->fillable), ARRAY_FILTER_USE_KEY);
         }
-
+        
         $insert = $model->db->insert($model->table, $data);
         
         if ($insert) {
             return $model->find($model->db->pdo()->lastInsertId());
         }
     }
-
+    
+    public static function delete(array $ids)
+    {
+        $model = new static;
+        return $model->db->deleteMany($model->table, $ids);
+    }
 
     public function attributes(): array
     {
