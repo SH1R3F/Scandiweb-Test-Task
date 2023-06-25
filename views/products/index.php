@@ -40,7 +40,7 @@
             <div class="col-md-3 col-sm-4">
               <div class="card shadow border mb-3">
                 <div class="card-body text-secondary">
-                  <input class="form-check-input delete-checkbox" type="checkbox" name="product[]" value="<?= $product->id ?>">
+                  <input class="form-check-input delete-checkbox" type="checkbox" name="products[]" value="<?= $product->id ?>">
                   <p class="card-text text-center">
                     <?= $product->sku ?><br>
                     <?= $product->name ?><br>
