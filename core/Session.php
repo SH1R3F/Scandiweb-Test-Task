@@ -10,6 +10,11 @@ class Session
         $_SESSION['flash'][$key] = $value;
     }
 
+    public static function set(string $key, mixed $value): void
+    {
+        $_SESSION[$key] = $value;
+    }
+
     public static function get(string $key): mixed
     {
         if (static::has($key)) {
