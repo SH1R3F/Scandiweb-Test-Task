@@ -38,7 +38,7 @@ class Router
     /**
      * Route Resolver
      */
-    public static function resolve($url, $request_method)
+    public static function resolve($url)
     {
         ['path' => $path] = parse_url($url);
         $path = rtrim($path, '/');
@@ -47,16 +47,21 @@ class Router
             throw new RouteNotFound();
         }
 
-        if (!isset(static::$routes[$path][$request_method])) {
+        // Support different form methods (PUT, DELETE)
+        if (isset($_POST['_method']) && in_array($_POST['_method'], ['DELETE', 'PUT'])) {
+            $_SERVER['REQUEST_METHOD'] = $_POST['_method'];
+        }
+
+        if (!isset(static::$routes[$path][$_SERVER['REQUEST_METHOD']])) {
             throw new RouteNotFound('Route Method Not Allowed!');
         }
 
 
-        $action = static::$routes[$path][$request_method];
+        $action = static::$routes[$path][$_SERVER['REQUEST_METHOD']];
 
         if (is_array($action)) {
             [$class, $method] = $action;
-            
+
             return call_user_func([Container::get($class), $method], []);
         }
 

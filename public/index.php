@@ -27,4 +27,4 @@ Container::set(Database::class, fn () => Database::instance());
 require __DIR__ . '/../routes/web.php';
 
 // Resolve current route
-echo Router::resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+echo Router::resolve($_SERVER['REQUEST_URI']);
