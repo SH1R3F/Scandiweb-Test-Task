@@ -54,7 +54,9 @@ class Validator
             $expl = explode(':', $rule);
             $rule = $expl[0];
             $params = explode(',', $expl[1] ?? '');
-            $rule = ucfirst($rule);
+
+            // required_if => RequiredIf
+            $rule = array_reduce(explode('_', $rule), fn($total, $item)=> $total .= ucfirst($item), '');
 
             if (!class_exists($validator = "\Scandiweb\Validation\Rules\\{$rule}Rule")) {
                 throw new RuleNotFound;
