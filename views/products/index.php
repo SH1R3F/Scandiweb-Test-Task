@@ -18,7 +18,7 @@
           <h1>Product List</h1>
         </div>
         <div class="col-sm-6 text-end">
-          <button type="button" class="btn btn-light shadow-sm mx-1 border" class="btn">ADD</button>
+          <a href="/add-product" type="button" class="btn btn-light shadow-sm mx-1 border" class="btn">ADD</a>
           <button type="button" id="delete-product-btn" class="btn btn-light shadow-sm mx-1 border" class="btn" onclick="document.getElementById('deleteForm').submit()">MASS DELETE</button>
         </div>
       </div>
@@ -60,8 +60,8 @@
 
 
   <!-- Footer -->
-  <div class="footer border-top mt-3 py-3">
-    <div class="container text-center">
+  <div class="footer">
+    <div class="container mt-3 py-3 border-top text-center">
       <span>Scandiweb Test assignment</span>
     </div>
   </div>
