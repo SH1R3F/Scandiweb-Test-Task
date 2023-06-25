@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\Handler;
 use Scandiweb\Container;
 use Scandiweb\Database;
 use Scandiweb\Router;
@@ -7,10 +8,17 @@ use Scandiweb\Router;
 // Include the composer autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
-
+/**
+ * Define Constants
+ */
 define('CONFIG_PATH', __DIR__ . '/../config/');
 define('VIEW_PATH', __DIR__ . '/../views/');
 
+
+/**
+ * Set Global Exception Handler
+ */
+set_exception_handler(new Handler);
 
 
 /**
