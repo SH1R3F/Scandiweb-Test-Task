@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Scandiweb\View;
 
 class ProductController
 {
     public function index()
     {
-        return View::make('products/index', ['var' => 'value']);
+        $products = Product::all();
+
+        return View::make('products/index', ['products' => $products]);
     }
 }
