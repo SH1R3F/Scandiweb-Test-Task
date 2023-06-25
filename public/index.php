@@ -4,6 +4,7 @@ use App\Exceptions\Handler;
 use Scandiweb\Container;
 use Scandiweb\Database;
 use Scandiweb\Router;
+use Scandiweb\Session;
 
 session_start();
 
@@ -38,3 +39,6 @@ require __DIR__ . '/../routes/web.php';
 
 // Resolve current route
 echo Router::resolve($_SERVER['REQUEST_URI']);
+
+// Clear Flash
+Session::clear('flash');
