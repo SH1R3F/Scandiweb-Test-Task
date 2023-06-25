@@ -8,7 +8,7 @@
                 <h1>Product Add</h1>
             </div>
             <div class="col-sm-6 text-end">
-                <button type="button" class="btn btn-light shadow-sm mx-1 border" class="btn">Save</button>
+                <button type="button" class="btn btn-light shadow-sm mx-1 border" class="btn" onclick="document.getElementById('product_form').submit()">Save</button>
                 <a href="/" type="button" id="delete-product-btn" class="btn btn-light shadow-sm mx-1 border" class="btn">Cancel</a>
             </div>
         </div>
@@ -20,14 +20,14 @@
     <div class="container">
 
         <!-- Delete Form -->
-        <form action="/#" method="POST" id="product_form">
+        <form action="/add-product" method="POST" id="product_form">
             <input type="hidden" name="csrf_token" value="TO BE ADDED">
 
             <!-- SKU Field -->
             <div class="mb-3 row">
                 <label for="sku" class="col-sm-2 col-form-label">SKU</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sku">
+                    <input type="text" class="form-control" id="sku" name="sku">
                 </div>
             </div><!-- SKU Field -->
 
@@ -35,7 +35,7 @@
             <div class="mb-3 row">
                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name">
+                    <input type="text" class="form-control" id="name" name="name">
                 </div>
             </div><!-- Name Field -->
 
@@ -43,7 +43,7 @@
             <div class="mb-3 row">
                 <label for="price" class="col-sm-2 col-form-label">Price($)</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="price">
+                    <input type="text" class="form-control" id="price" name="price">
                 </div>
             </div><!-- Price Field -->
 
@@ -51,7 +51,7 @@
             <div class="mb-3 row">
                 <label for="type" class="col-sm-2 col-form-label">Product type</label>
                 <div class="col-sm-10">
-                    <select name="type" class="form-select" aria-label="Product type" id="productType" v-model="type">
+                    <select class="form-select" aria-label="Product type" id="productType" v-model="type" name="type">
                         <option value="book" id="Book">Book</option>
                         <option value="dvd" id="DVD">DVD</option>
                         <option value="furniture" id="Furniture">Furniture</option>
