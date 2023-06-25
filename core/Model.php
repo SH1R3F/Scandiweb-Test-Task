@@ -51,8 +51,8 @@ abstract class Model
         if (isset($model->fillable)) {
             $data = array_filter($data, fn ($key) => in_array($key, $model->fillable), ARRAY_FILTER_USE_KEY);
         }
-        
-        $insert = $model->db->insert($model->table, $data);
+
+        $insert = $model->db->insert($model->table, $model->fill($data)->attributes());
         
         if ($insert) {
             return $model->find($model->db->pdo()->lastInsertId());
@@ -63,6 +63,17 @@ abstract class Model
     {
         $model = new static;
         return $model->db->deleteMany($model->table, $ids);
+    }
+
+    public function fill(array $data): static
+    {
+        $model = new static;
+
+        foreach ($data as $key => $value) {
+            $model->$key = $value;
+        }
+
+        return $model;
     }
 
     public function attributes(): array
