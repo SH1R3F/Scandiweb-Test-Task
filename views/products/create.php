@@ -1,5 +1,6 @@
 <?php include __DIR__ . '/../layout/header.php' ?>
 
+
 <!-- Header -->
 <div class="header pt-5">
     <div class="container">
@@ -9,7 +10,7 @@
             </div>
             <div class="col-sm-6 text-end">
                 <button type="button" class="btn btn-light shadow-sm mx-1 border" class="btn" onclick="document.getElementById('product_form').submit()">Save</button>
-                <a href="/" type="button" id="delete-product-btn" class="btn btn-light shadow-sm mx-1 border" class="btn">Cancel</a>
+                <a href="/" type="button" class="btn btn-light shadow-sm mx-1 border" class="btn">Cancel</a>
             </div>
         </div>
     </div>
@@ -19,7 +20,19 @@
 <div class="products pt-4" id="app">
     <div class="container">
 
-        <!-- Delete Form -->
+        <?php if (count($errors)) : ?>
+            <div class="alert alert-danger" role="alert">
+                The given data was invalid.
+                <ul>
+                    <?php foreach ($errors as $error) : ?>
+                        <li><?= $error[0] ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+
+        <!-- Create Form -->
         <form action="/add-product" method="POST" id="product_form">
             <input type="hidden" name="csrf_token" value="TO BE ADDED">
 
@@ -108,7 +121,7 @@
             </div>
 
 
-        </form><!-- Delete Form -->
+        </form><!-- Create Form -->
 
     </div>
 </div><!-- Products List -->
@@ -122,7 +135,7 @@
 
     createApp({
         setup() {
-            const type = ref('book')
+            const type = ref('')
             return {
                 type
             }
