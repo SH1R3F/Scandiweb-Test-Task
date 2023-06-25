@@ -21,7 +21,7 @@ class Product extends Model
     /**
      * Price Accessor and Mutator
      */
-    protected function price()
+    protected function price(): Attribute
     {
         return Attribute::make(
             get: fn (int $value) => number_format($value / 100, 2),
@@ -32,11 +32,27 @@ class Product extends Model
     /**
      * Attributes Accessor and Mutator
      */
-    protected function attrs()
+    protected function attrs(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => json_decode($value, 1),
+            get: function (string $value) {
+                $method = $this->type . 'Attrs';
+                return $this->$method(json_decode($value, 1));
+            },
             set: fn (mixed $value) => json_encode($value)
         );
+    }
+
+    private function dvdAttrs(array $attrs): string
+    {
+        return 'Size: ' . $attrs['size'] . ' MB';
+    }
+    private function bookAttrs(array $attrs): string
+    {
+        return 'Weight: ' . $attrs['weight'] . 'KG';
+    }
+    private function furnitureAttrs(array $attrs): string
+    {
+        return "Dimension: {$attrs['height']}x{$attrs['width']}x{$attrs['length']}";
     }
 }
