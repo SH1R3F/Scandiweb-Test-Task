@@ -50,22 +50,26 @@ class Validator
         $rules = is_array($rules) ? $rules : explode('|', $rules);
 
         foreach ($rules as $rule) {
+            // Support rules with parameters. Ex: exists:products,id
+            $expl = explode(':', $rule);
+            $rule = $expl[0];
+            $params = explode(',', $expl[1] ?? '');
             $rule = ucfirst($rule);
 
             if (!class_exists($validator = "\Scandiweb\Validation\Rules\\{$rule}Rule")) {
                 throw new RuleNotFound;
             }
 
-            $this->validate(new $validator, $key, $value);
+            $this->validate(new $validator, $key, $value, $params);
         }
     }
 
     /**
      * Run the validator and add the error message
      */
-    public function validate(Rule $validator, string $key, mixed $value): void
+    public function validate(Rule $validator, string $key, mixed $value, array $arguments): void
     {
-        if (!$validator->validate($key, $value)) {
+        if (!$validator->validate($key, $value, ...$arguments)) {
             $this->errors[$key][] = $validator->error();
         }
     }
