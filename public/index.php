@@ -3,6 +3,7 @@
 use App\Exceptions\Handler;
 use Scandiweb\Container;
 use Scandiweb\Database;
+use Scandiweb\Exceptions\PageExpired;
 use Scandiweb\Router;
 use Scandiweb\Session;
 
@@ -36,6 +37,18 @@ Container::set(Database::class, fn () => Database::instance());
  * Register routes
  */
 require __DIR__ . '/../routes/web.php';
+
+
+/**
+ * Validate CSRF
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (Session::get(Session::CSRF) !== $_POST[Session::CSRF]) {
+        throw new PageExpired;
+    }
+    Session::clear(Session::CSRF);
+}
+
 
 // Resolve current route
 echo Router::resolve($_SERVER['REQUEST_URI']);
