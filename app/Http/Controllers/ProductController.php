@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteProductRequest;
 use App\Models\Product;
+use Scandiweb\Request;
 use Scandiweb\View;
 
 class ProductController
 {
+
+    public function __construct(private Request $request)
+    {
+    }
+
     public function index(): View
     {
         $products = Product::all();
@@ -16,7 +23,11 @@ class ProductController
 
     public function destroy()
     {
-        echo '<pre>';
-        var_dump($_REQUEST);
+        $request = new DeleteProductRequest;
+
+        $products_ids = $request->get('products');
+        Product::delete($products_ids);
+
+        return header('Location: /');
     }
 }
