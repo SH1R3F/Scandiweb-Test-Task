@@ -5,6 +5,8 @@ use Scandiweb\Container;
 use Scandiweb\Database;
 use Scandiweb\Router;
 
+session_start();
+
 // Include the composer autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
