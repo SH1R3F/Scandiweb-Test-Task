@@ -64,4 +64,13 @@ class Database
         $stmt = static::$connection->prepare("INSERT INTO $table ($keys) VALUES ($placeholders)");
         return $stmt->execute($data);
     }
+
+    public function count(string $table, array $where)
+    {
+        $clause = array_reduce(array_keys($where), fn($total, $item) => ($total . "$item = ? AND "), '');
+
+        $stmt = static::$connection->prepare("SELECT COUNT(*) FROM $table WHERE " . rtrim($clause, ' AND '));
+        $stmt->execute(array_values($where));
+        return $stmt->fetchColumn();
+    }
 }
