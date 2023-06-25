@@ -17,6 +17,26 @@ class Validator
     public function __construct(array $data, array $rules)
     {
         foreach ($rules as $key => $rule) {
+
+            if (str_contains($key, '.')) {
+                $bits = explode('.', $key);
+
+                foreach ($bits as $bit) {
+                    if (isset($data[$bit])) {
+                        $data = $data[$bit];
+                        continue;
+                    }
+
+                    if ($bit === '*' && is_array($data)) {
+                        foreach ($data as $k => $value) {
+                            $this->run(str_replace('*', $k, $key), $value, $rule);
+                        }
+                        continue;
+                    }
+                }
+                continue;
+            }
+
             $this->run($key, $data[$key] ?? null, $rule);
         }        
     }
