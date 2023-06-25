@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DeleteProductRequest;
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use Scandiweb\Redirect;
 use Scandiweb\Request;
@@ -25,6 +26,17 @@ class ProductController
     public function create(): View
     {
         return View::make('products/create');
+    }
+
+    public function store()
+    {
+        echo '<pre>';
+        print_r($this->request->all());
+
+        $request = new StoreProductRequest;
+
+        echo '<pre>';
+        print_r($request->all());
     }
 
     public function destroy()
