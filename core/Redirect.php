@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Scandiweb;
 
@@ -10,4 +10,8 @@ class Redirect
         return header("Location: $path");
     }
 
+    public static function back()
+    {
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
 }
