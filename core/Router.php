@@ -2,6 +2,7 @@
 
 namespace Scandiweb;
 
+use Scandiweb\Exceptions\MethodNotAllowed;
 use Scandiweb\Exceptions\RouteNotFound;
 
 class Router
@@ -53,7 +54,7 @@ class Router
         }
 
         if (!isset(static::$routes[$path][$_SERVER['REQUEST_METHOD']])) {
-            throw new RouteNotFound('Route Method Not Allowed!');
+            throw new MethodNotAllowed;
         }
 
 
