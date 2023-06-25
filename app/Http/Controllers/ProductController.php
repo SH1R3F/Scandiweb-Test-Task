@@ -22,6 +22,11 @@ class ProductController
         return View::make('products/index', ['products' => $products]);
     }
 
+    public function create(): View
+    {
+        return View::make('products/create');
+    }
+
     public function destroy()
     {
         $request = new DeleteProductRequest;
